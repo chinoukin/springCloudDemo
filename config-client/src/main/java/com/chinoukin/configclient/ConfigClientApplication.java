@@ -18,6 +18,7 @@ public class ConfigClientApplication {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("haha");
 		SpringApplication.run(ConfigClientApplication.class, args);
 	}
 }
