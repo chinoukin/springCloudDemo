@@ -22,6 +22,7 @@ public class ConfigClientApplication {
 		System.out.println("wwwwwwww");
 		System.out.println("ffff99999");
 		System.out.println("新东方");
+		System.out.println("99888");
 		SpringApplication.run(ConfigClientApplication.class, args);
 	}
 }
