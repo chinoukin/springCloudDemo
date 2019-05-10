@@ -2,6 +2,10 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true # 使用ip地址注册，否则会由于机器没有配置域名发生找不到地址的错误
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port} # 地址格式=ip:端口
+
 server:
   port: 8765
 spring:
