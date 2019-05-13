@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: eurekaserver
+  name: eurekaserver
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      run: eurekaserver
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: eurekaserver
+    spec:
+      containers:
+        - image: 192.168.70.133:5000/eurekaserver:latest
+          imagePullPolicy: IfNotPresent
+          name: eurekaserver
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: eurekaserver
+  name: eurekaserver
+  namespace: default
+spec:
+  ports:
+    - nodePort: 32105
+      port: 80
+      protocol: TCP
+      targetPort: 8761
+  selector:
+    run: eurekaserver
+  type: NodePort
+
+
