@@ -27,12 +27,12 @@ spec:
         - name: BOOT_JAVA_OPTS
           valueFrom:
             configMapKeyRef:
-              key: bootJavaOpts
+              key: envfile.bootJavaOpts
               name: my-config
         - name: maintainer
           valueFrom:
             configMapKeyRef:
-              key: maintainer
+              key: envfile.maintainer
               name: my-config
       imagePullSecrets:
       - name: mydocker-registry
