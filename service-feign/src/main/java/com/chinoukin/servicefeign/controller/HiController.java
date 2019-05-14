@@ -32,7 +32,7 @@ public class HiController {
         String HOSTNAME = environment.getProperty("HOSTNAME");
         String JAVA_HOME = environment.getProperty("JAVA_HOME");
         // from configmap
-        String bootJavaOpts = environment.getProperty("bootJavaOpts");
+        String BOOT_JAVA_OPTS = environment.getProperty("BOOT_JAVA_OPTS");
 
         System.out.println("EUREKASERVER_PORT_80_TCP:" + EUREKASERVER_PORT_80_TCP);
         System.out.println("HOSTNAME:" + HOSTNAME);
@@ -42,8 +42,8 @@ public class HiController {
         map.put("EUREKASERVER_PORT_80_TCP", EUREKASERVER_PORT_80_TCP);
         map.put("HOSTNAME", HOSTNAME);
         map.put("JAVA_HOME", JAVA_HOME);
-        if (StringUtils.isNotEmpty(bootJavaOpts)) {
-            map.put("bootJavaOpts", bootJavaOpts);
+        if (StringUtils.isNotEmpty(BOOT_JAVA_OPTS)) {
+            map.put("BOOT_JAVA_OPTS", BOOT_JAVA_OPTS);
         }
         return map;
     }
