@@ -29,7 +29,6 @@ spec:
           configMapKeyRef:
             key: bootJavaOpts
             name: my-config
-
       imagePullSecrets:
       - name: mydocker-registry
       restartPolicy: Always
