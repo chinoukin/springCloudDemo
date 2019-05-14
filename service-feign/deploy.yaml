@@ -23,12 +23,12 @@ spec:
       - image: 192.168.70.133:5000/service-feign:latest
         imagePullPolicy: IfNotPresent
         name: service-feign
-      env:
-      - name: bootJavaOpts
-        valueFrom:
-          configMapKeyRef:
-            key: bootJavaOpts
-            name: my-config
+        env:
+        - name: bootJavaOpts
+          valueFrom:
+            configMapKeyRef:
+              key: bootJavaOpts
+              name: my-config
       imagePullSecrets:
       - name: mydocker-registry
       restartPolicy: Always
