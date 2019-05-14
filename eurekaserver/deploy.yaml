@@ -23,6 +23,8 @@ spec:
         - image: 192.168.70.133:5000/eurekaserver:latest
           imagePullPolicy: IfNotPresent
           name: eurekaserver
+      imagePullSecrets:
+        - name: mydocker-registry
       restartPolicy: Always
 
 ---

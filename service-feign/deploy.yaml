@@ -23,4 +23,6 @@ spec:
         - image: 192.168.70.133:5000/service-feign:latest
           imagePullPolicy: IfNotPresent
           name: service-feign
+      imagePullSecrets:
+        - name: mydocker-registry
       restartPolicy: Always
