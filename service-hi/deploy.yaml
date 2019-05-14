@@ -20,9 +20,9 @@ spec:
         run: service-hi
     spec:
       containers:
-        - image: 192.168.70.133:5000/service-hi:latest
-          imagePullPolicy: IfNotPresent
-          name: service-hi
+      - image: 192.168.70.133:5000/service-hi:latest
+        imagePullPolicy: IfNotPresent
+        name: service-hi
       imagePullSecrets:
-        - name: mydocker-registry
+      - name: mydocker-registry
       restartPolicy: Always
