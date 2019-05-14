@@ -2,6 +2,7 @@ package com.chinoukin.servicefeign.controller;
 
 import com.chinoukin.servicefeign.entity.User;
 import com.chinoukin.servicefeign.service.SchedualServiceHi;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class HiController {
@@ -24,18 +27,25 @@ public class HiController {
     Environment environment;
 
     @RequestMapping(value="/showEnv",method = RequestMethod.GET)
-    public String showEnv(){
-        System.out.println("----------activeProfiles------------");
-        String[] activeProfiles =  environment.getActiveProfiles();
-        for (String ap : activeProfiles) {
-            System.out.println(ap);
+    public Map<String, String> showEnv(){
+        String EUREKASERVER_PORT_80_TCP = environment.getProperty("EUREKASERVER_PORT_80_TCP");
+        String HOSTNAME = environment.getProperty("HOSTNAME");
+        String JAVA_HOME = environment.getProperty("JAVA_HOME");
+        // from configmap
+        String bootJavaOpts = environment.getProperty("bootJavaOpts");
+
+        System.out.println("EUREKASERVER_PORT_80_TCP:" + EUREKASERVER_PORT_80_TCP);
+        System.out.println("HOSTNAME:" + HOSTNAME);
+        System.out.println("JAVA_HOME:" + JAVA_HOME);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("EUREKASERVER_PORT_80_TCP", EUREKASERVER_PORT_80_TCP);
+        map.put("HOSTNAME", HOSTNAME);
+        map.put("JAVA_HOME", JAVA_HOME);
+        if (StringUtils.isNotEmpty(bootJavaOpts)) {
+            map.put("bootJavaOpts", bootJavaOpts);
         }
-        System.out.println("----------defaultProfiles------------");
-        String[] defaultProfiles = environment.getDefaultProfiles();
-        for (String dp : defaultProfiles) {
-            System.out.println(dp);
-        }
-        return "success";
+        return map;
     }
 
     @RequestMapping(value = "/hi",method = RequestMethod.GET)
