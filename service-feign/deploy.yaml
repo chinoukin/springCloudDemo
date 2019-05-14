@@ -23,7 +23,7 @@ spec:
       - image: 192.168.70.133:5000/service-feign:latest
         imagePullPolicy: IfNotPresent
         name: service-feign
-        command: ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/local/wiseapp/app.jar", "cat /etc/config/keys"]
+        command: ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/local/wiseapp/app.jar", "$(cat /etc/config/keys)"]
         volumeMounts:
         - name: config-volume
           mountPath: /etc/config
