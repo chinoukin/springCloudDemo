@@ -23,7 +23,9 @@ spec:
       - image: 192.168.70.133:5000/service-feign:latest
         imagePullPolicy: IfNotPresent
         name: service-feign
-        command: ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/local/wiseapp/app.jar", "$(cat /etc/config/keys)"]
+        #command: [ "java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/local/wiseapp/app.jar", "--eureka.client.service-url.defaultZone=http://eurekaserver/eureka/" ]
+        #command: [ "java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/local/wiseapp/app.jar", "$(/usr/bin/cat /etc/config/bootJavaOpts)" ]
+        command: ["./entrypoint.sh"]
         volumeMounts:
         - name: config-volume
           mountPath: /etc/config
@@ -33,7 +35,9 @@ spec:
           name: my-config
           items:
           - key: bootJavaOpts
-            path: keys
+            path: bootJavaOpts
+          - key: jvmOpts
+            path: jvmOpts
       imagePullSecrets:
       - name: mydocker-registry
       restartPolicy: Always
