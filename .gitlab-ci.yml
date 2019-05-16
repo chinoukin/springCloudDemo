@@ -1,0 +1,18 @@
+stages:
+  - build
+  - test
+  - deploy
+job1:
+  stage: build
+  only:
+    - master
+  script:
+    - echo "hello,welcome to use chinoukin's gitlab-ci"
+job2:
+  stage: deploy
+  only:
+    - master
+  script:
+    - echo $(docker version)
+    - docker -v
+    - git --version
