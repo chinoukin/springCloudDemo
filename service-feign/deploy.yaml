@@ -23,9 +23,14 @@ spec:
       - image: 192.168.70.133:5000/service-feign:latest
         imagePullPolicy: IfNotPresent
         name: service-feign
-        #command: [ "java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/local/wiseapp/app.jar", "--eureka.client.service-url.defaultZone=http://eurekaserver/eureka/" ]
-        #command: [ "java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/local/wiseapp/app.jar", "$(/usr/bin/cat /etc/config/bootJavaOpts)" ]
-        command: ["./entrypoint.sh"]
+        #command: [ "java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/local/wiseapp/app.jar", "--eureka.client.service-url.defaultZone=http://eurekaserver/eureka/ -Xms256m -Xmx256m" ]
+        #command: ["./entrypoint.sh"]
+        #command: [ "/bin/sh", "-c", "bootJavaOpts=$(cat /etc/config/bootJavaOpts) jvmOpts=$(cat /etc/config/jvmOpts) && java -Djava.security.egd=file:/dev/./urandom -jar /app.jar $bootJavaOpts $jvmOpts" ]
+        command:
+          - "/bin/sh"
+          - "-c"
+          # - "bootJavaOpts=$(cat /etc/config/bootJavaOpts) && jvmOpts=$(cat /etc/config/jvmOpts) && java -Djava.security.egd=file:/dev/./urandom -jar /app.jar $bootJavaOpts $jvmOpts"
+          - "java -Djava.security.egd=file:/dev/./urandom -jar /app.jar $(cat /etc/config/bootJavaOpts) $(cat /etc/config/jvmOpts)"
         volumeMounts:
         - name: config-volume
           mountPath: /etc/config
